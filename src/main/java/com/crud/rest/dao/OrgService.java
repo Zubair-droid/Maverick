@@ -1,4 +1,4 @@
-package com.crud.rest.services;
+package com.crud.rest.dao;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface OrgService {
     
     Organization getOrgById(long id);
     
-    void deleteOrg(long id);
+    void deleteOrganization(long id);
 
 }

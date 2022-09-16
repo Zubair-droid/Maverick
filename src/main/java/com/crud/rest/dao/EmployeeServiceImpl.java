@@ -1,4 +1,4 @@
-package com.crud.rest.services;
+package com.crud.rest.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.crud.rest.exception.ResourceNotFoundException;
 import com.crud.rest.model.Employee;
+import com.crud.rest.model.Organization;
 import com.crud.rest.repository.EmployeeRepository;
+import com.crud.rest.repository.OrgRepository;
 
 @Service
 @Transactional
@@ -17,11 +19,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
+	@Autowired
+    private OrgRepository orgRepo;
+    
 	@Override
 	public Employee createEmployee(Employee employee) {
 		return employeeRepository.save(employee);
 	}
 	
+
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		Optional<Employee> employeeDb = this.employeeRepository.findById(employee.getId());
@@ -32,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeUpdate.setName(employee.getName());
 			employeeRepository.save(employeeUpdate);
 			return employeeUpdate;
-		}else {
+		} else {
 			throw new ResourceNotFoundException("Record not found with id : " + employee.getId());
 		}		
 	}
@@ -68,6 +74,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		
 	}
+
 	
+	// Post Employee to an organization
+	@Override
+	public Employee createEmployeeWithId(Employee employee, long id) {
+		
+		Organization org = orgRepo.findById(id).orElseThrow();
+		employee.setOrg(org);
+		
+		return employeeRepository.save(employee);	
+		}
+
+	
+	// Getter and Setter
+	public EmployeeRepository getEmployeeRepository() {
+		return employeeRepository;
+	}
+
+
+	public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
+	}
 
 }

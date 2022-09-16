@@ -1,6 +1,5 @@
 package com.crud.rest.model;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,9 +24,15 @@ public class Organization {
 	@Column(name = "orgName")
 	private String orgName;
 	
+	// Mapping Employee table to Organization. / Managed by Organization
 	@JsonManagedReference
 	@OneToMany(mappedBy = "org", cascade = CascadeType.ALL)
 	private List <Employee> employee;
+	
+	// Mapping Asset table to Organization. / Managed by Organization
+	@JsonManagedReference
+	@OneToMany(mappedBy = "org", cascade = CascadeType.ALL)
+	private List <Asset> asset;
 	
 	public List<Employee> getEmployee() {
 		return employee;
@@ -41,6 +46,7 @@ public class Organization {
 	public void setAsset(List<Asset> asset) {
 		this.asset = asset;
 	}
+	
 	public Organization(long orgId, String orgName, List<Employee> employee, List<Asset> asset) {
 		super();
 		this.orgId = orgId;
@@ -48,10 +54,6 @@ public class Organization {
 		this.employee = employee;
 		this.asset = asset;
 	}
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "org", cascade = CascadeType.ALL)
-	private List <Asset> asset;
 	
 	public long getOrgId() {
 		return orgId;

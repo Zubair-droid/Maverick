@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crud.rest.dao.OrgService;
 import com.crud.rest.model.Organization;
-import com.crud.rest.services.OrgService;
 
 @RestController
 public class OrgController {
@@ -25,20 +25,20 @@ public class OrgController {
 	// Get all organizations      ---> GET
 	@GetMapping("/organization")
 	public ResponseEntity <List <Organization> > getOrganization(){
-		return ResponseEntity.ok().body(orgService.getOrgs());
+		return ResponseEntity.ok().body(this.orgService.getOrgs());
 	}
 	
 	// Get organization by id
 	@GetMapping("/organization/{id}")
-	public ResponseEntity <Organization> getEmployeeById(@PathVariable long id){
-		return ResponseEntity.ok().body(orgService.getOrgById(id));
+	public ResponseEntity <Organization> getOrganizationById(@PathVariable long id){
+		return ResponseEntity.ok().body(this.orgService.getOrgById(id));
 		
 	}
 	
 	// Add organization           ---> POST 
 	@PostMapping("/organization")
 	public ResponseEntity <Organization> createOrganization(@RequestBody Organization org){
-		return ResponseEntity.ok().body(orgService.createOrganization(org));
+		return ResponseEntity.ok().body(this.orgService.createOrganization(org));
 	}
 	
 	
@@ -46,14 +46,24 @@ public class OrgController {
 	@PutMapping("organization/{id}")
 	public ResponseEntity <Organization> updateOrganization(@PathVariable long id, @RequestBody Organization org){
 		org.setOrgId(id);
-		return ResponseEntity.ok().body(orgService.updateOrganization(org));
+		return ResponseEntity.ok().body(this.orgService.updateOrganization(org));
 	}
 	
 	
 	// Delete Organization by id ---> DELETE
 	@DeleteMapping("/organization/{id}")
 	public HttpStatus deleteOrganization(@PathVariable long id){
-		this.orgService.deleteOrg(id);
+		this.orgService.deleteOrganization(id);
 		return HttpStatus.OK;
 	}
+
+	public OrgService getOrgService() {
+		return orgService;
+	}
+
+	public void setOrgService(OrgService orgService) {
+		this.orgService = orgService;
+	}
+	
+	
 }

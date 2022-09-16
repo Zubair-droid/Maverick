@@ -1,4 +1,4 @@
-package com.crud.rest.services;
+package com.crud.rest.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 import com.crud.rest.exception.ResourceNotFoundException;
 import com.crud.rest.model.Asset;
 import com.crud.rest.repository.AssetRepository;
+import com.crud.rest.repository.OrgRepository;
 
 @Service
 public class AssetServiceImpl implements AssetService{
 
 	@Autowired
 	private AssetRepository assetRepository;
+	
+	@SuppressWarnings("unused")
+	private OrgRepository orgRepo;
 	
 	@Override
 	public Asset createAsset(Asset asset) {
@@ -63,4 +67,14 @@ public class AssetServiceImpl implements AssetService{
 		}
 		
 	}
+
+	public AssetRepository getAssetRepository() {
+		return assetRepository;
+	}
+
+	public void setAssetRepository(AssetRepository assetRepository) {
+		this.assetRepository = assetRepository;
+	}
+	
+	
 }

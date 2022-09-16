@@ -1,4 +1,4 @@
-package com.crud.rest.services;
+package com.crud.rest.dao;
 
 import java.util.List;
 
@@ -16,5 +16,7 @@ public interface AssetService  {
     Asset getAssetById(long id);
     
     void deleteAsset(long id);
+    
+    
 
 }

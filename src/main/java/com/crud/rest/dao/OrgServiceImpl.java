@@ -1,11 +1,10 @@
-package com.crud.rest.services;
+package com.crud.rest.dao;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.crud.rest.exception.ResourceNotFoundException;
-import com.crud.rest.model.Asset;
 import com.crud.rest.model.Organization;
 import com.crud.rest.repository.OrgRepository;
 
@@ -16,14 +15,15 @@ public class OrgServiceImpl implements OrgService {
 	private OrgRepository orgRepo;
 
 	@Override
-	public Organization createOrganization(Organization orgn) {
-		return orgRepo.save(orgn);
+	public Organization createOrganization(Organization org) {
+		return orgRepo.save(org);
 	}
 	
 	@Override
 	public List<Organization> getOrgs() {
 	   return this.orgRepo.findAll();
 	}
+	
 	@Override
 	public Organization updateOrganization( Organization org) {
 		Optional<Organization> orgDb = this.orgRepo.findById(org.getOrgId());
@@ -39,8 +39,7 @@ public class OrgServiceImpl implements OrgService {
 		}		
 	}
 	
-	
-	
+
 	@Override
 	public Organization getOrgById(long id) {
 		Optional<Organization> orgDb = this.orgRepo.findById(id);
@@ -52,8 +51,13 @@ public class OrgServiceImpl implements OrgService {
 		}
 	}
 
+	// Setter
+	public void setOrgRepo(OrgRepository orgRepo) {
+		this.orgRepo = orgRepo;
+	}
+
 	@Override
-	public void deleteOrg(long id) {
+	public void deleteOrganization(long id) {
 		 Optional <Organization> orgDb = this.orgRepo.findById(id);
 		
 		if(orgDb.isPresent()) {

@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.crud.rest.dao.AssetService;
 import com.crud.rest.model.Asset;
-import com.crud.rest.services.AssetService;
-
 
 @RestController
 public class AssetController {
@@ -50,5 +48,15 @@ public class AssetController {
 		this.assetService.deleteAsset(id);
 		return HttpStatus.OK;
 	}
+
+	public AssetService getAssetService() {
+		return assetService;
+	}
+
+	public void setAssetService(AssetService assetService) {
+		this.assetService = assetService;
+	}
+	
+	
 	
 }

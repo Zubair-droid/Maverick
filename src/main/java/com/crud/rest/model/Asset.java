@@ -1,5 +1,6 @@
 package com.crud.rest.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +22,17 @@ public class Asset {
 	@Column(name = "name")
 	private String assetName;
 
+	
+	// Mapping back assets to organization ( multiple assets can be possessed by organization)
 	@JsonBackReference
-	@ManyToOne()
+	@ManyToOne
 	private Organization org;
+	
+	
+	// Mapping back assets to employee ( different assets can be possessed by one employee)
+	//@JsonBackReference
+	//@ManyToOne
+	//private Employee employee;
 	
 	public Asset() {
 		super();
@@ -46,7 +55,6 @@ public class Asset {
 	public void setAssetName(String assetName) {
 		this.assetName = assetName;
 	}
-	
 	
 	@Override
 	public String toString() {
